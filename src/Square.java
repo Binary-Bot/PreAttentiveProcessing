@@ -40,7 +40,8 @@ public class Square implements Shape {
         return  new Rectangle(getTop(),getLeft(), 2*length, 2 *length);
     }
 
-    void paint(Graphics g){
+    @Override
+    public void paint(Graphics g) {
         g.setColor(color);
         g.fillOval(getLeft(), getTop(), length*2, length*2 );
     }

@@ -39,7 +39,8 @@ public class Circle implements Shape{
         return  new Rectangle(getTop(),getLeft(), 2*radius, 2 *radius);
     }
 
-    void paint(Graphics g){
+    @Override
+    public void paint(Graphics g) {
         g.setColor(color);
         g.fillOval(getLeft(), getTop(), radius*2, radius*2 );
     }
