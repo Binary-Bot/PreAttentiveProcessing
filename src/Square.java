@@ -43,7 +43,7 @@ public class Square implements Shape {
     @Override
     public void paint(Graphics g) {
         g.setColor(color);
-        g.fillOval(getLeft(), getTop(), length*2, length*2 );
+        g.fillRect(getLeft(), getTop(), length*2, length*2 );
     }
 
     public boolean isInside(Point p){
