@@ -9,7 +9,7 @@ public class Circle implements Shape{
     public Circle(Point center, Color color) {
         this.x = center.x;
         this.y = center.y;
-        radius = 5;
+        radius = 8;
         this.color = color;
     }
 

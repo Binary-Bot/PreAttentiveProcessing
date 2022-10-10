@@ -10,7 +10,7 @@ public class Square implements Shape {
         this.x = center.x;
         this.y = center.y;
         this.color = color;
-        length = 5;
+        length = 8;
     }
 
     public Point getCenter() {
