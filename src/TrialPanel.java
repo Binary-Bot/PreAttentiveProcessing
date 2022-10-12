@@ -14,7 +14,7 @@ public class TrialPanel extends JPanel {
     private static final int height = 500;
 
     enum Choice {
-        COLOR, SHAPE, COMBO
+        COLOR, SHAPE, COMBO, SIZE
     }
     public TrialPanel() {
         setBackground(Color.LIGHT_GRAY);
@@ -24,13 +24,12 @@ public class TrialPanel extends JPanel {
         border = 20;
         target = false;
         distractors = 10;
-        generateCircle(Color.RED);
     }
 
-    private void generateCircle(Color color) {
+    private void generateCircle(int r, Color color) {
         int x1 = random.nextInt(width - border*2) + border;
         int y1 = random.nextInt(height - border*2) + border;
-        Shape shape = new Circle(new Point(x1, y1), color);
+        Shape shape = new Circle(new Point(x1, y1), r, color);
         shapes.add(shape);
     }
 
@@ -46,17 +45,17 @@ public class TrialPanel extends JPanel {
         switch (choice) {
             case COLOR -> {
                 for (int i = 0; i < distractors; i++) {
-                    generateCircle(Color.BLUE);
+                    generateCircle(8, Color.BLUE);
                 }
                 if (random.nextDouble() < 0.5) {
                     target = true;
                     shapes.remove(0);
-                    generateCircle(Color.RED);
+                    generateCircle(8, Color.RED);
                 }
             }
             case SHAPE -> {
                 for (int i = 0; i < distractors; i++) {
-                    generateCircle(Color.RED);
+                    generateCircle(8, Color.RED);
                 }
                 if (random.nextDouble() < 0.5) {
                     target = true;
@@ -66,13 +65,23 @@ public class TrialPanel extends JPanel {
             }
             case COMBO -> {
                 for (int i = 0; i < distractors / 2; i++) {
-                    generateCircle(Color.BLUE);
+                    generateCircle(8, Color.BLUE);
                     generateSquare(Color.RED);
                 }
                 if (random.nextDouble() < 0.5) {
                     target = true;
                     shapes.remove(random.nextInt(shapes.size()));
-                    generateCircle(Color.RED);
+                    generateCircle(8, Color.RED);
+                }
+            }
+            case SIZE -> {
+                for (int i = 0; i < distractors; i++) {
+                    generateCircle(8, Color.RED);
+                }
+                if (random.nextDouble() < 0.5) {
+                    target = true;
+                    shapes.remove(0);
+                    generateCircle(12, Color.RED);
                 }
             }
         }

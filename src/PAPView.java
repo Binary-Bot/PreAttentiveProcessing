@@ -22,6 +22,7 @@ public class PAPView {
     private JPanel mainPanel;
     private JLabel correctAnsLabel;
     private JLabel trialLabel;
+    private JRadioButton sizeRButton;
 
     private TrialPanel trialPanel;
     private ButtonGroup buttonGroup;
@@ -38,7 +39,9 @@ public class PAPView {
         buttonGroup.add(colorRButton);
         buttonGroup.add(ShapeRButton);
         buttonGroup.add(comboRButton);
+        buttonGroup.add(sizeRButton);
         trial = 1;
+        interval = 150;
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,12 +90,11 @@ public class PAPView {
 
     private void recordData() {
         if (correctAns % 10 == 0) {
-            System.out.println("Printed File");
             try {
                 FileWriter fw = new FileWriter("results.txt", true);
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter outFile = new PrintWriter(bw);
-                outFile.println(subjectName.getText() + "," + slider1.getValue() + "," + interval);
+                outFile.println(subjectName.getText() + "," + slider1.getValue() + "," + selectedButton.getText() + "," + interval);
                 outFile.close();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

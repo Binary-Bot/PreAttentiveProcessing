@@ -44,6 +44,8 @@ public class Square implements Shape {
     public void paint(Graphics g) {
         g.setColor(color);
         g.fillRect(getLeft(), getTop(), length*2, length*2 );
+        g.setColor(Color.BLACK);
+        g.drawRect(getLeft(), getTop(), length*2, length*2);
     }
 
     public boolean isInside(Point p){

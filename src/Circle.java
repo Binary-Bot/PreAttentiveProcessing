@@ -6,10 +6,10 @@ public class Circle implements Shape{
     protected double x;
     protected double y;
 
-    public Circle(Point center, Color color) {
+    public Circle(Point center, int radius, Color color) {
         this.x = center.x;
         this.y = center.y;
-        radius = 8;
+        this.radius = radius;
         this.color = color;
     }
 
