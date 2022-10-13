@@ -29,6 +29,7 @@ public class PAPView {
     private JRadioButton selectedButton;
     private int correctAns;
     private Timer timer;
+    private Timer delayTimer;
     private int interval;
     private int trial;
 
@@ -53,16 +54,26 @@ public class PAPView {
                 }
 
                 trialPanel.setDistractors(slider1.getValue());
-                trialPanel.fillPanel(TrialPanel.Choice.valueOf(selectedButton.getText().toUpperCase()));
+
                 timer = new Timer(interval, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        trialPanel.clear();
+                        trialPanel.fillPanel(TrialPanel.Choice.valueOf(selectedButton.getText().toUpperCase()));
                         timer.stop();
+                        delayTimer.start();
                         feedback();
                     }
                 });
                 timer.start();
+
+                delayTimer = new Timer(interval, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        trialPanel.clear();
+                        delayTimer.stop();
+                    }
+                });
+
             }
         });
     }
@@ -74,12 +85,14 @@ public class PAPView {
             if (input == JOptionPane.YES_OPTION){
                 correctAns++;
             } else {
+                correctAns = 0;
                 interval += 25;
             }
         } else {
             if (input == JOptionPane.NO_OPTION) {
                 correctAns++;
             } else {
+                correctAns = 0;
                 interval += 25;
             }
         }
@@ -89,9 +102,10 @@ public class PAPView {
     }
 
     private void recordData() {
-        if (correctAns % 10 == 0) {
+        if (correctAns == 10) {
             try {
-                FileWriter fw = new FileWriter("results.txt", true);
+                correctAns = 0;
+                FileWriter fw = new FileWriter("results.csv", true);
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter outFile = new PrintWriter(bw);
                 outFile.println(subjectName.getText() + "," + slider1.getValue() + "," + selectedButton.getText() + "," + interval);
@@ -99,6 +113,8 @@ public class PAPView {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+        } else {
+            timer.start();
         }
     }
 
